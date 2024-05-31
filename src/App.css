@@ -20,3 +20,12 @@
 .bars-icon-div .fas.fa-bars {
   font-size: 1.5rem; /* Adjust the size as needed */
 }
+
+.big-image { /* Grösse für das Grosse lange Bild anpassen */
+  width: 80%;
+}
+
+.progress-bar { /* Progress-bar, die anzeigt bei welchem Schritt man gerade ist */
+  width: 80%;
+  margin-top: 1.5rem;
+}
