@@ -29,3 +29,14 @@
   width: 80%;
   margin-top: 1.5rem;
 }
+
+.picture-grid { /* Formatierung für den Grid */
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-gap: 10px;
+}
+
+.picture-grid img {
+  width: 100px;
+  height: 100px;
+}
