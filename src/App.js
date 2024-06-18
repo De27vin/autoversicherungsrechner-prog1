@@ -25,6 +25,19 @@ const carModels = {
   Mazda: ["MX-5", "6", "CX-5"],
 };
 
+const brandImages = {
+  Audi: 'https://via.placeholder.com/100?text=Audi',
+  BMW: 'https://via.placeholder.com/100?text=BMW',
+  VW: 'https://via.placeholder.com/100?text=VW',
+  Toyota: 'https://via.placeholder.com/100?text=Toyota',
+  Honda: 'https://via.placeholder.com/100?text=Honda',
+  Nissan: 'https://via.placeholder.com/100?text=Nissan',
+  Ford: 'https://via.placeholder.com/100?text=Ford',
+  Hyundai: 'https://via.placeholder.com/100?text=Hyundai',
+  Kia: 'https://via.placeholder.com/100?text=Kia',
+  Mazda: 'https://via.placeholder.com/100?text=Mazda',
+};
+
 function BigImage() {
   return (
     <div className="d-flex justify-content-center">
@@ -45,8 +58,7 @@ function App() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleBrandChange = (event) => {
-    const brand = event.target.value;
+  const handleBrandClick = (brand) => {
     setSelectedBrand(brand);
     setModels(carModels[brand] || []);
   };
@@ -78,9 +90,10 @@ function App() {
           <Container fluid className="px-3">
             <Navbar.Brand
               className="me-auto d-flex align-items-center"
-              href="#home"
+              href="#"
+              onClick={() => window.location.reload()}
             >
-              <img src={logo} href="App.js" alt="Logo" className="logo-image" />
+              <img src={logo} alt="Logo" className="logo-image" />
             </Navbar.Brand>
             <div className="ms-auto">
               <Navbar.Collapse id="basic-navbar-nav" align="end">
@@ -105,24 +118,23 @@ function App() {
         <div className="container">
           {step === 0 && (
             <div className="form-group mt-3">
-              <label htmlFor="brandSelect">Wähle eine Automarke</label>
-              <select
-                id="brandSelect"
-                className="form-control"
-                onChange={handleBrandChange}
-              >
-                <option value="">Wähle eine Automarke</option>
-                {Object.keys(carModels).map((brand) => (
-                  <option key={brand} value={brand}>
-                    {brand}
-                  </option>
+              <label className="title-questions">Wähle eine Automarke</label>
+              <div className="picture-grid">
+                {Object.keys(brandImages).map((brand) => (
+                  <img
+                    key={brand}
+                    src={brandImages[brand]}
+                    alt={brand}
+                    onClick={() => handleBrandClick(brand)}
+                    className={`brand-image ${selectedBrand === brand ? 'selected' : ''}`}
+                  />
                 ))}
-              </select>
+              </div>
             </div>
           )}
           {step === 1 && selectedBrand && (
             <div className="form-group mt-3">
-              <label htmlFor="modelSelect">Wähle ein Automodell</label>
+              <label className="title-questions" htmlFor="modelSelect">Wähle ein Automodell</label>
               <select
                 id="modelSelect"
                 className="form-control"
@@ -139,23 +151,19 @@ function App() {
           )}
           {step === 2 && selectedModel && (
             <div className="form-group mt-3">
-              <label htmlFor="colorSelect">Wähle eine Farbe</label>
+              <label className="title-questions" htmlFor="colorSelect">Persönliche Daten</label>
               <select
                 id="colorSelect"
                 className="form-control"
                 onChange={handleColorChange}
               >
-                <option value="">Wähle eine Farbe</option>
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-                <option value="Black">Black</option>
-                <option value="White">White</option>
+                <option value="">Persönliche Daten</option>
               </select>
             </div>
           )}
           {step === 3 && selectedColor && (
             <div className="form-group mt-3">
-              <label htmlFor="offerSelect">Wähle ein Angebot</label>
+              <label className="title-questions" htmlFor="offerSelect">Wähle ein Angebot</label>
               <select
                 id="offerSelect"
                 className="form-control"
@@ -182,7 +190,7 @@ function App() {
               onClick={handleBackClick}
               disabled={step === 0}
             >
-              Zurück
+              Back
             </Button>
             <Button
               variant="primary"
@@ -194,7 +202,7 @@ function App() {
                 (step === 3 && !selectedOffer)
               }
             >
-              Weiter
+              Continue
             </Button>
           </div>
         </div>
