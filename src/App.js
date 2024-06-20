@@ -5,9 +5,20 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import logo from "./assets/logo.png";
 import Image from "react-bootstrap/Image";
-import ImageChooseCar from "./assets/chooseCar.png";
+import ImageCarsPicture from "./assets/carsPicture.png";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Button from "react-bootstrap/Button";
+
+import AudiLogo from "./assets/audi-logo.png";
+import BMWLogo from "./assets/bmw-logo.png";
+import VWLogo from "./assets/vw-logo.png";
+import ToyotaLogo from "./assets/toyota-logo.png";
+import HondaLogo from "./assets/honda-logo.png";
+import NissanLogo from "./assets/nissan-logo.png";
+import FordLogo from "./assets/ford-logo.png";
+import HyundaiLogo from "./assets/hyundai-logo.png";
+import KiaLogo from "./assets/kia-logo.png";
+import MazdaLogo from "./assets/mazda-logo.png";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -26,22 +37,22 @@ const carModels = {
 };
 
 const brandImages = {
-  Audi: 'https://via.placeholder.com/100?text=Audi',
-  BMW: 'https://via.placeholder.com/100?text=BMW',
-  VW: 'https://via.placeholder.com/100?text=VW',
-  Toyota: 'https://via.placeholder.com/100?text=Toyota',
-  Honda: 'https://via.placeholder.com/100?text=Honda',
-  Nissan: 'https://via.placeholder.com/100?text=Nissan',
-  Ford: 'https://via.placeholder.com/100?text=Ford',
-  Hyundai: 'https://via.placeholder.com/100?text=Hyundai',
-  Kia: 'https://via.placeholder.com/100?text=Kia',
-  Mazda: 'https://via.placeholder.com/100?text=Mazda',
+  Audi: AudiLogo,
+  BMW: BMWLogo,
+  VW: VWLogo,
+  Toyota: ToyotaLogo,
+  Honda: HondaLogo,
+  Nissan: NissanLogo,
+  Ford: FordLogo,
+  Hyundai: HyundaiLogo,
+  Kia: KiaLogo,
+  Mazda: MazdaLogo,
 };
 
 function BigImage() {
   return (
     <div className="d-flex justify-content-center">
-      <Image src={ImageChooseCar} fluid className="big-image" />
+      <Image src={ImageCarsPicture} fluid className="big-image" />
     </div>
   );
 }
@@ -50,10 +61,13 @@ function App() {
   const [show, setShow] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
   const [selectedOffer, setSelectedOffer] = useState("");
   const [models, setModels] = useState([]);
   const [step, setStep] = useState(0);
+  const [prename, setPrename] = useState("");
+  const [name, setName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [licenseDate, setLicenseDate] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -67,12 +81,8 @@ function App() {
     setSelectedModel(event.target.value);
   };
 
-  const handleColorChange = (event) => {
-    setSelectedColor(event.target.value);
-  };
-
-  const handleOfferChange = (event) => {
-    setSelectedOffer(event.target.value);
+  const handleOfferChange = (offer) => {
+    setSelectedOffer(offer);
   };
 
   const handleBackClick = () => {
@@ -126,7 +136,9 @@ function App() {
                     src={brandImages[brand]}
                     alt={brand}
                     onClick={() => handleBrandClick(brand)}
-                    className={`brand-image ${selectedBrand === brand ? 'selected' : ''}`}
+                    className={`brand-image ${
+                      selectedBrand === brand ? "selected" : ""
+                    }`}
                   />
                 ))}
               </div>
@@ -134,7 +146,9 @@ function App() {
           )}
           {step === 1 && selectedBrand && (
             <div className="form-group mt-3">
-              <label className="title-questions" htmlFor="modelSelect">Wähle ein Automodell</label>
+              <label className="title-questions" htmlFor="modelSelect">
+                Wähle ein Automodell
+              </label>
               <select
                 id="modelSelect"
                 className="form-control"
@@ -151,37 +165,95 @@ function App() {
           )}
           {step === 2 && selectedModel && (
             <div className="form-group mt-3">
-              <label className="title-questions" htmlFor="colorSelect">Persönliche Daten</label>
-              <select
-                id="colorSelect"
-                className="form-control"
-                onChange={handleColorChange}
-              >
-                <option value="">Persönliche Daten</option>
-              </select>
+              <label className="title-questions">Persönliche Daten</label>
+              <div className="form-group">
+                <label htmlFor="prename">Vorname</label>
+                <input
+                  type="text"
+                  id="prename"
+                  className="form-control"
+                  value={prename}
+                  onChange={(e) => setPrename(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  className="form-control"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="birthdate">Geburtsdatum</label>
+                <input
+                  type="date"
+                  id="birthdate"
+                  className="form-control"
+                  value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="licenseDate">Datum des Führerscheins</label>
+                <input
+                  type="date"
+                  id="licenseDate"
+                  className="form-control"
+                  value={licenseDate}
+                  onChange={(e) => setLicenseDate(e.target.value)}
+                />
+              </div>
             </div>
           )}
-          {step === 3 && selectedColor && (
-            <div className="form-group mt-3">
-              <label className="title-questions" htmlFor="offerSelect">Wähle ein Angebot</label>
-              <select
-                id="offerSelect"
-                className="form-control"
-                onChange={handleOfferChange}
-              >
-                <option value="">Wähle ein Angebot</option>
-                <option value="Offer1">Offer 1</option>
-                <option value="Offer2">Offer 2</option>
-                <option value="Offer3">Offer 3</option>
-              </select>
-            </div>
-          )}
+{step === 3 && (
+  <div className="form-group mt-3">
+    <label className="title-questions">Wähle ein Angebot</label>
+    <div className="offer-container">
+      <div className="offer">
+        <h5><strong>Budget</strong></h5>
+        <text>✔ Haftplicht<br />✘ Halbkasko<br />✘ Vollkasko</text>
+        <Button
+          variant="outline-primary"
+          onClick={() => handleOfferChange("Budget")}
+        >
+          Auswählen
+        </Button>
+      </div>
+      <div className="offer">
+        <h5><strong>Standart</strong></h5>
+        <text>✔ Haftplicht<br />✔ Halbkasko<br />✘ Vollkasko</text>
+        <Button
+          variant="outline-primary"
+          onClick={() => handleOfferChange("Standard")}
+        >
+          Auswählen
+        </Button>
+      </div>
+      <div className="offer">
+        <h5><strong>Premium</strong></h5>
+        <text>✔ Haftplicht<br />✔ Halbkasko<br />✔ Vollkasko</text>
+        <Button
+          variant="outline-primary"
+          onClick={() => handleOfferChange("Premium")}
+        >
+          Auswählen
+        </Button>
+      </div>
+    </div>
+  </div>
+)}
           {step === 4 && selectedOffer && (
             <div className="form-group mt-3">
               <p>Selected Brand: {selectedBrand}</p>
               <p>Selected Model: {selectedModel}</p>
-              <p>Selected Color: {selectedColor}</p>
               <p>Selected Offer: {selectedOffer}</p>
+              <p>Vorname: {prename}</p>
+              <p>Name: {name}</p>
+              <p>Geburtsdatum: {birthdate}</p>
+              <p>Datum des Führerscheins: {licenseDate}</p>
             </div>
           )}
           <div className="d-flex justify-content-between mt-3">
@@ -190,7 +262,7 @@ function App() {
               onClick={handleBackClick}
               disabled={step === 0}
             >
-              Back
+              Zurück
             </Button>
             <Button
               variant="primary"
@@ -198,11 +270,12 @@ function App() {
               disabled={
                 (step === 0 && !selectedBrand) ||
                 (step === 1 && !selectedModel) ||
-                (step === 2 && !selectedColor) ||
+                (step === 2 &&
+                  (!prename || !name || !birthdate || !licenseDate)) ||
                 (step === 3 && !selectedOffer)
               }
             >
-              Continue
+              Weiter
             </Button>
           </div>
         </div>
