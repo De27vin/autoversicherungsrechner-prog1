@@ -121,13 +121,10 @@ function App() {
 
         <BigImage />
 
-        <div className="d-flex justify-content-center">
-          <ProgressBar now={(step + 1) * 25} className="progress-bar" />
-        </div>
-
         <div className="container">
           {step === 0 && (
             <div className="form-group mt-3">
+              <ProgressBar now={1}/>
               <label className="title-questions">Wähle eine Automarke</label>
               <div className="picture-grid">
                 {Object.keys(brandImages).map((brand) => (
@@ -146,6 +143,7 @@ function App() {
           )}
           {step === 1 && selectedBrand && (
             <div className="form-group mt-3">
+              <ProgressBar now={25} />
               <label className="title-questions" htmlFor="modelSelect">
                 Wähle ein Automodell
               </label>
@@ -165,6 +163,7 @@ function App() {
           )}
           {step === 2 && selectedModel && (
             <div className="form-group mt-3">
+              <ProgressBar now={50}/>
               <label className="title-questions">Persönliche Daten</label>
               <div className="form-group">
                 <label htmlFor="prename">Vorname</label>
@@ -208,50 +207,82 @@ function App() {
               </div>
             </div>
           )}
-{step === 3 && (
-  <div className="form-group mt-3">
-    <label className="title-questions">Wähle ein Angebot</label>
-    <div className="offer-container">
-      <div className="offer">
-        <h5><strong>Budget</strong></h5>
-        <text>✔ Haftplicht<br />✘ Halbkasko<br />✘ Vollkasko</text>
-        <Button
-          variant="outline-primary"
-          onClick={() => handleOfferChange("Budget")}
-        >
-          Auswählen
-        </Button>
-      </div>
-      <div className="offer">
-        <h5><strong>Standart</strong></h5>
-        <text>✔ Haftplicht<br />✔ Halbkasko<br />✘ Vollkasko</text>
-        <Button
-          variant="outline-primary"
-          onClick={() => handleOfferChange("Standard")}
-        >
-          Auswählen
-        </Button>
-      </div>
-      <div className="offer">
-        <h5><strong>Premium</strong></h5>
-        <text>✔ Haftplicht<br />✔ Halbkasko<br />✔ Vollkasko</text>
-        <Button
-          variant="outline-primary"
-          onClick={() => handleOfferChange("Premium")}
-        >
-          Auswählen
-        </Button>
-      </div>
-    </div>
-  </div>
-)}
+          {step === 3 && (
+            <div className="form-group mt-3">
+              <ProgressBar now={75}/>
+              <label className="title-questions">Wähle ein Angebot</label>
+              <div className="offer-container">
+                <div className="offer">
+                  <h5>
+                    <strong>Budget</strong>
+                  </h5>
+                  <text>
+                    ✔ Haftplicht
+                    <br />
+                    ✘ Halbkasko
+                    <br />
+                    ✘ Vollkasko
+                    <br />
+                    CHF 899
+                  </text>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handleOfferChange("Budget")}
+                  >
+                    Auswählen
+                  </Button>
+                </div>
+                <div className="offer">
+                  <h5>
+                    <strong>Standart</strong>
+                  </h5>
+                  <text>
+                    ✔ Haftplicht
+                    <br />
+                    ✔ Halbkasko
+                    <br />
+                    ✘ Vollkasko
+                    <br />
+                    CHF 1199
+                  </text>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handleOfferChange("Standard")}
+                  >
+                    Auswählen
+                  </Button>
+                </div>
+                <div className="offer">
+                  <h5>
+                    <strong>Premium</strong>
+                  </h5>
+                  <text>
+                    ✔ Haftplicht
+                    <br />
+                    ✔ Halbkasko
+                    <br />
+                    ✔ Vollkasko
+                    <br />
+                    CHF 1349
+                  </text>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handleOfferChange("Premium")}
+                  >
+                    Auswählen
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
           {step === 4 && selectedOffer && (
             <div className="form-group mt-3">
-              <p>Selected Brand: {selectedBrand}</p>
-              <p>Selected Model: {selectedModel}</p>
-              <p>Selected Offer: {selectedOffer}</p>
+              <ProgressBar now={100}/>
+              <p>Gewählte Marke: {selectedBrand}</p>
+              <p>Gewähltes Modell: {selectedModel}</p>
+              <p>Gewähltes Angebot: {selectedOffer}</p>
               <p>Vorname: {prename}</p>
-              <p>Name: {name}</p>
+              <p>Nachnameame: {name}</p>
               <p>Geburtsdatum: {birthdate}</p>
               <p>Datum des Führerscheins: {licenseDate}</p>
             </div>
